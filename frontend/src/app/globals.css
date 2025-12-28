@@ -54,6 +54,39 @@ body {
 
 .skeleton { background: linear-gradient(90deg, #efe6db 25%, #f6eee4 50%, #efe6db 75%); background-size: 800px 100%; animation: shimmer 1.2s infinite linear; }
 
+/* Hero and layout tokens */
+.hero {
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+.container-center {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem; /* match max-w-6xl but explicit */
+  padding: 0 1rem;
+}
+
+/* Editorial typography */
+.title-serif { font-family: var(--serif); letter-spacing: -0.02em; color: #252323; }
+.title-serif.text-4xl { font-size: 2.25rem; line-height: 1.05; }
+.title-serif.text-3xl { font-size: 1.875rem; }
+
+/* Card refinements */
+.card-bg { background: var(--card-bg); border: 1px solid rgba(15,13,11,0.04); }
+.rounded-2xl { border-radius: 14px; }
+.shadow-book { box-shadow: 0 18px 40px rgba(20,18,15,0.06), 0 6px 18px rgba(20,18,15,0.04); }
+
+/* Buttons & pills */
+.pill-btn { background: white; border: 1px solid rgba(15,13,11,0.06); padding: 0.5rem 0.9rem; border-radius: 9999px; color: var(--muted); font-weight: 500; }
+.pill-btn:hover { background: rgba(255,249,240,0.9); box-shadow: 0 6px 18px rgba(15,13,11,0.03); transform: translateY(-2px); }
+
+/* Skeleton subtle radius */
+.skeleton { border-radius: 8px; }
+
+/* Accessible focus */
+button:focus, a:focus, input:focus { outline: 3px solid rgba(167,139,250,0.18); outline-offset: 2px; }
+
 .app-shell { min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 4rem 1rem; }
 
 .shadow-book { box-shadow: 0 10px 30px rgba(20,18,15,0.06), 0 4px 10px rgba(20,18,15,0.04); }
