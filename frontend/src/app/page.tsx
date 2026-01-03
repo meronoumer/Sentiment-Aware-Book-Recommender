@@ -2,7 +2,7 @@
 
 import MoodInput from "@/components/MoodInput";
 import BookCard from "@/components/BookCard";
-import { useState as reactUseState } from "react"; // alias just in case
+import { useState as reactUseState } from "react";
 import { Book } from "@/types/book"; 
 
 export default function Page() {
@@ -18,11 +18,11 @@ export default function Page() {
     setLastLimit(limit);
 
     try {
-      const response = await fetch("/api/recommend", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mood, limit }),
-      });
+      const response = await fetch("http://localhost:8000/recommend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mood, limit }),
+    });
 
       if (!response.ok) {
         throw new Error("Failed to fetch recommendations");
