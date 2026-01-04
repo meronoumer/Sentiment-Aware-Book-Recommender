@@ -43,15 +43,21 @@ for query in queries:
 
             seen_ids.add(book_id)
 
+            image_links = volume.get("imageLinks", {})
+            cover_url = image_links.get("thumbnail") or image_links.get("smallThumbnail")
+            if cover_url and cover_url.startswith("http://"):
+                cover_url = cover_url.replace("http://", "https://")
+            
             books.append({
                 "id": book_id,
                 "title": volume.get("title"),
                 "author": ", ".join(volume.get("authors", [])),
                 "description": volume.get("description"),
-                "genres": ", ".join(volume.get("categories", []))
+                "genres": ", ".join(volume.get("categories", [])),
+                "coverUrl": cover_url
             })
 
-        time.sleep(0.2)  # be polite to API
+        time.sleep(0.2) 
 
 print(f"Collected {len(books)} books")
 

@@ -25,6 +25,7 @@ app.add_middleware(
 # --- Schemas ---
 class MoodRequest(BaseModel):
     mood: str
+    limit: int = 6
 
 
 class BookRecommendation(BaseModel):
@@ -32,6 +33,7 @@ class BookRecommendation(BaseModel):
     author: Optional[str] = None
     genres: Optional[List[str]] = None 
     description: Optional[str] = None
+    coverUrl: Optional[str] = None
 
 class RecommendResponse(BaseModel):
     recommendations: List[BookRecommendation]
@@ -42,7 +44,8 @@ def recommend(req: MoodRequest):
     mood_vec = vectorizer.transform([req.mood])
 
     similarities = cosine_similarity(mood_vec, book_vectors)[0]
-    top_indices = similarities.argsort()[-6:][::-1]
+    top_indices = similarities.argsort()[-req.limit:][::-1]
+
 
     recommendations = []
     for idx in top_indices:
@@ -52,8 +55,10 @@ def recommend(req: MoodRequest):
             "author": row.get("author"),
             "genres": [g.strip() for g in row["genres"].split(",")] if isinstance(row.get("genres"), str) else [],
             "description": row.get("description"),
+            "coverUrl": row.get("coverUrl"),
         })
 
 
 
-    return {"recommendations": recommendations}
+    return RecommendResponse(recommendations=recommendations)
+

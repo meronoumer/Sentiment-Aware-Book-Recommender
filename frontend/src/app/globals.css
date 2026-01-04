@@ -54,6 +54,23 @@ body {
 
 .skeleton { background: linear-gradient(90deg, #efe6db 25%, #f6eee4 50%, #efe6db 75%); background-size: 800px 100%; animation: shimmer 1.2s infinite linear; }
 
+@keyframes fadeUp { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
+
+.fade-in-up { animation: fadeUp 600ms cubic-bezier(.2,.9,.3,1) both; }
+
+/* soft hero glow */
+.hero-glow { position: relative; }
+.hero-glow::before { content: ""; position: absolute; inset: -40% -10% auto -10%; height: 420px; background: radial-gradient(600px 220px at 50% 10%, rgba(167,139,250,0.12), transparent 30%); filter: blur(40px); z-index: -1; pointer-events: none; }
+
+/* Accent helper: set --accent-color on a parent to adapt components */
+.accent { --accent-color: var(--accent-mauve); }
+.accent-amber { --accent-color: var(--accent-amber); }
+.accent-teal { --accent-color: var(--accent-teal); }
+
+.accent-border { border-color: rgba(0,0,0,0.06); box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+
+.subtle-transition { transition: transform 180ms ease, box-shadow 180ms ease, opacity 160ms ease; }
+
 /* Hero and layout tokens */
 .hero {
   padding: 2.5rem 1rem;

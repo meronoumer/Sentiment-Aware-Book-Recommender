@@ -5,18 +5,19 @@ import { Star, Coffee, Compass, Music, Sparkles, Cloud, Edit3 } from "lucide-rea
 type Props = {
   onSubmit: (mood: string, limit?: number) => Promise<void>;
   defaultLimit?: number;
+  onMoodChange?: (accentClass: string | null) => void;
 };
 
 const MOODS = [
-  { id: "calm", label: "Calm", icon: Star, color: "bg-amber-50 text-amber-800" },
-  { id: "cozy", label: "Cozy", icon: Coffee, color: "bg-amber-50 text-amber-800" },
-  { id: "adventurous", label: "Adventurous", icon: Compass, color: "bg-teal-50 text-teal-800" },
-  { id: "nostalgic", label: "Nostalgic", icon: Music, color: "bg-rose-50 text-rose-800" },
-  { id: "uplifting", label: "Uplifting", icon: Sparkles, color: "bg-amber-50 text-amber-800" },
-  { id: "melancholy", label: "Melancholy", icon: Cloud, color: "bg-slate-50 text-slate-700" },
+  { id: "calm", label: "Calm", icon: Star, color: "bg-amber-50 text-amber-800", accent: "accent-amber" },
+  { id: "cozy", label: "Cozy", icon: Coffee, color: "bg-amber-50 text-amber-800", accent: "accent-amber" },
+  { id: "adventurous", label: "Adventurous", icon: Compass, color: "bg-teal-50 text-teal-800", accent: "accent-teal" },
+  { id: "nostalgic", label: "Nostalgic", icon: Music, color: "bg-rose-50 text-rose-800", accent: "accent" },
+  { id: "uplifting", label: "Uplifting", icon: Sparkles, color: "bg-amber-50 text-amber-800", accent: "accent-amber" },
+  { id: "melancholy", label: "Melancholy", icon: Cloud, color: "bg-slate-50 text-slate-700", accent: "accent" },
 ];
 
-export default function MoodInput({ onSubmit, defaultLimit = 6 }: Props) {
+export default function MoodInput({ onSubmit, defaultLimit = 6, onMoodChange }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [custom, setCustom] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,8 @@ export default function MoodInput({ onSubmit, defaultLimit = 6 }: Props) {
     setLocalError(null);
     setSelected(id);
     if (id !== "custom") setCustom("");
+    const mood = MOODS.find((m) => m.id === id);
+    if (mood) onMoodChange?.(mood.accent || null);
   };
 
   const handleSubmit = async (e?: React.FormEvent) => {
@@ -109,7 +112,7 @@ export default function MoodInput({ onSubmit, defaultLimit = 6 }: Props) {
 
         <div className="mt-4 flex items-center justify-end gap-3">
           {localError && <div className="text-sm text-rose-600">{localError}</div>}
-          <button type="submit" disabled={loading} className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-white shadow-md transition transform duration-200 hover:scale-105 active:scale-95 disabled:opacity-60" style={{background: 'linear-gradient(90deg, var(--accent-amber), #c7b3ff)'}}>
+          <button type="submit" disabled={loading} className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-white shadow-md transition transform duration-200 hover:scale-105 active:scale-95 disabled:opacity-60" style={{background: 'linear-gradient(90deg, var(--accent-color, var(--accent-amber)), rgba(167,139,250,0.85))'}}>
             {loading ? (
               <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden>
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
