@@ -12,6 +12,7 @@ books_df = pd.read_csv("books.csv")
 vectorizer = joblib.load("vectorizer.pkl")
 book_vectors = vectorizer.transform(books_df["description"].fillna(""))
 
+
 # --- App ---
 app = FastAPI(title="Mood-Based Book Recommender", version="1.0")
 
