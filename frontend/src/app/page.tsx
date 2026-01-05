@@ -21,11 +21,15 @@ export default function Page() {
     setLastLimit(limit);
 
     try {
-      const response = await fetch("http://localhost:8000/recommend", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mood, limit }),
-    });
+      const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/recommend`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mood, limit }),
+      }
+    );
+    
 
       if (!response.ok) {
         throw new Error("Failed to fetch recommendations");
